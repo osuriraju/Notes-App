@@ -1,0 +1,75 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="container-fluid navi">
+      <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
+        <a class="navbar-brand navb" href="#">Notes App</a>
+
+        <div>
+          <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">{{ user.username }}</li>
+            {% endif %}
+            <li class="nav-item">
+              <a href="home" class="nav-link active">Home</a>
+            </li>
+            <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="formcontainer">
+        <div class="form">
+            
+            <form action="newnote" method="post">
+                {% csrf_token %}
+                <h2>Add New Note</h2>
+                <label>Title : </label><br>
+                <!-- <input type="text" name="note_title" id="title"><br>
+                <label for="desc">Description : </label><br>
+                <textarea rows = "3" cols="40" name = "note_desc" placeholder="Description"></textarea><br> -->
+                {{ form.as_p }}
+                
+                <button type="submit" class="btn btn-primary subtn">Submit</button>
+            </form>
+        </div></div>
+
+
+    <div class="container-fluid">
+      <div class="row notes">
+        {% for message in messages %}
+        <h1>{{message}}</h1>
+        {% endfor %}
+        {% for note in notes %}
+        {% if user == note.user %}
+        <div class="col-lg-3 col-md-6">
+          <div class="card notecard">
+            <div class="card-body">
+
+              
+              <h3 class="card-title">{{ note.note_title }}</h3>
+              <p class="card-text">{{ note.note_desc }}</p>
+            </div>
+            <button class="btn btn-danger delbtn"><a href="{% url 'delete_note' note.id %}" class="dellink">Delete</a></button>
+          </div>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+  </body>
+</html>

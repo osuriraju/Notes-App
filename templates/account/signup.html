@@ -1,0 +1,41 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      rel="stylesheet"
+      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="informup">
+      <form action="signup" method="post">
+        {% csrf_token %}
+        <h2>Sign Up</h2>
+        <div class="row">
+          <input type="text" name="first_name" placeholder="First Name" class="col-lg-6 col-md-12"/>
+          <input type="text" name="last_name" placeholder="Last Name" class="col-lg-6 col-md-12"/>
+        </div>
+        <div class="row">
+          <input type="text" name="username" placeholder="Username" class="col-lg-5 col-md-12"/><br />
+          <input type="email" name="email" placeholder="Email" class="col-lg-5 col-md-12"/>
+        </div>
+        <div class="row">
+        <input type="password" name="password" placeholder="Password" class="col-lg-5 col-md-12"/><br />
+        <input
+          type="password"
+          name="password1"
+          placeholder="Confirm Password"
+          class="col-lg-5 col-md-12"
+        /><br/></div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <p>Already a user? <a href="signin">Signin here</a></p>
+      </form>
+    </div>
+  </body>
+</html>
